@@ -3,6 +3,7 @@ import dotenv from "dotenv"; // Import dotenv to load environment variables from
 import { db_connect } from "./connect/db_connect"; // Import the database connection function
 import authRoutes from "./routes/auth.routes"; // Import authentication-related routes
 import userRoutes from "./routes/user.routes"; // Import user-related routes
+import postRoutes from "./routes/post.routes";
 import cookieParser from "cookie-parser"; // Import cookie-parser middleware to parse cookies
 import { v2 as cloudinary } from "cloudinary"; // Import Cloudinary SDK for cloud image management
 
@@ -37,6 +38,8 @@ app.use("/api/auth", authRoutes);
 // Mount user-related routes under the '/api/users' prefix.
 // All routes defined in `userRoutes` will be accessible via paths like '/api/users/:id', '/api/users/profile', etc.
 app.use("/api/users", userRoutes);
+
+app.use("/api/posts", postRoutes);
 
 // The commented-out line `app.use(routes);` suggests a previous or alternative routing setup.
 // In the current setup, specific route modules are mounted individually.

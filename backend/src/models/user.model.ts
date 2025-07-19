@@ -13,6 +13,7 @@ export interface IUser extends Document {
   coverImg?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  likedPosts: Types.ObjectId[];
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema(
@@ -65,6 +66,13 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       type: String,
       default: "",
     },
+    likedPosts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );
