@@ -11,7 +11,7 @@ export const db_connect = async (app: Express) => {
     });
     console.log("MongoDB is connected");
     app.listen(PORT, () => {
-      console.log("Server is running on port 3000");
+      console.log("Server is running on port 4000");
     });
   } catch (error: any) {
     console.log("Error in DB connection");
