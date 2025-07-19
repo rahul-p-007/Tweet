@@ -4,6 +4,7 @@ import { db_connect } from "./connect/db_connect"; // Import the database connec
 import authRoutes from "./routes/auth.routes"; // Import authentication-related routes
 import userRoutes from "./routes/user.routes"; // Import user-related routes
 import postRoutes from "./routes/post.routes";
+import notificationRoutes from "./routes/notification.route";
 import cookieParser from "cookie-parser"; // Import cookie-parser middleware to parse cookies
 import { v2 as cloudinary } from "cloudinary"; // Import Cloudinary SDK for cloud image management
 
@@ -40,6 +41,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 app.use("/api/posts", postRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // The commented-out line `app.use(routes);` suggests a previous or alternative routing setup.
 // In the current setup, specific route modules are mounted individually.
