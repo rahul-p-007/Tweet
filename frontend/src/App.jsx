@@ -10,8 +10,6 @@ import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
 import { fetchAuthUser } from "./components/sidebar/service";
-// Import the fixed fetchAuthUser from your services file
-// import fetchAuthUser from "./services/auth"; // Adjust path if necessary
 
 function App() {
   const { data: authuser, isLoading } = useQuery({
