@@ -9,6 +9,8 @@ export const isAuthenticated = async (req: any, res: any, next: any) => {
         message: "Unauthorized : No token provided",
       });
     }
+    console.log("Cookies:", req.cookies);
+
     const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
     if (!decoded) {
       return res.status(401).json({

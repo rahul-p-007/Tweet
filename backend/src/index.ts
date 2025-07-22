@@ -8,6 +8,8 @@ import notificationRoutes from "./routes/notification.route";
 import cookieParser from "cookie-parser"; // Import cookie-parser middleware to parse cookies
 import { v2 as cloudinary } from "cloudinary"; // Import Cloudinary SDK for cloud image management
 
+import cors from "cors";
+
 dotenv.config(); // Load environment variables from the .env file into process.env
 
 // Configure Cloudinary with credentials from environment variables
@@ -18,6 +20,12 @@ cloudinary.config({
 });
 
 const app = express(); // Create an Express application instance
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 // Middleware to parse JSON bodies from incoming requests.
 // This allows Express to understand JSON data sent in the request body (e.g., from POST requests).

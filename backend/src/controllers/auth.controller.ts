@@ -209,9 +209,7 @@ export const getMe = async (req: any, res: Response) => {
     // Find the user by their ID (from the authenticated request) and exclude the password field
     const user = await User.findById(req.user._id).select("-password");
     // Return the user profile data
-    res.status(200).json({
-      user,
-    });
+    res.status(200).json(user);
   } catch (error) {
     // Catch any unexpected errors
     console.error("Error in GetMe controller:", error);

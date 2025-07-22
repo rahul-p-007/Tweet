@@ -5,7 +5,7 @@ import { MdOutlineMail } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
 import XSvg from "../components/svg/XSvg";
 import { FaApple, FaEye, FaGoogle } from "react-icons/fa";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const LoginPage = () => {
@@ -31,6 +31,7 @@ const LoginPage = () => {
 
   // const isError = false;
 
+  const queryClient = useQueryClient();
   const {
     isPending,
     isError,
@@ -59,6 +60,8 @@ const LoginPage = () => {
     },
     onSuccess: () => {
       toast.success("login Successfully");
+      // refetch auth user
+      queryClient.invalidateQueries({ queryKey: ["authuser"] });
     },
   });
 

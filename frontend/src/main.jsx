@@ -11,14 +11,20 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // 2. wrap app with query client provider
 // 3. create queries
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Router>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </Router>
-  </StrictMode>
+  // <StrictMode>
+  <Router>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </Router>
+  // </StrictMode>
 );
