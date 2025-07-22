@@ -5,6 +5,8 @@ import { MdOutlineMail } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
 import XSvg from "../components/svg/XSvg";
 import { FaApple, FaEye, FaGoogle } from "react-icons/fa";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,12 @@ const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
+    loginMutation(formData);
+    // mutate(formData);
+    setFormData({
+      username: "",
+      password: "",
+    });
     console.log(formData);
   };
 
@@ -21,7 +29,38 @@ const LoginPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const isError = false;
+  // const isError = false;
+
+  const {
+    isPending,
+    isError,
+    mutate: loginMutation,
+    error,
+  } = useMutation({
+    mutationFn: async ({ username, password }) => {
+      try {
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to login");
+        }
+        return data;
+      } catch (error) {
+        console.error(error);
+        toast.error(error.message);
+        throw new error();
+      }
+    },
+    onSuccess: () => {
+      toast.success("login Successfully");
+    },
+  });
 
   return (
     <div className="max-w-screen-xl mx-auto flex h-screen">
@@ -69,13 +108,13 @@ const LoginPage = () => {
             </span>
           </label>
           <button className="btn rounded-full btn-primary text-white">
-            Login
+            {isPending ? "....Loading" : "Login"}
           </button>
           <button className="btn rounded-full btn-black text-white">
             forgot password
           </button>
 
-          {isError && <p className="text-red-500">Something went wrong</p>}
+          {isError && <p className="text-red-500">{error.message} </p>}
         </form>
         <div className="flex flex-col gap-2 mt-4">
           <p className="text-white text-lg">{"Don't"} have an account?</p>

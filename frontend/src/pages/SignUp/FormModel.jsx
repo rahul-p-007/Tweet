@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
-function FormModel({ formData, handleInputChange }) {
+function FormModel({ formData, handleInputChange, isPending }) {
   const [passwordChecks, setPasswordChecks] = useState({
     length: false,
     uppercase: false,
@@ -134,7 +134,9 @@ function FormModel({ formData, handleInputChange }) {
             )}
           </div>
 
-          <button className="btn w-full btn-primary text-white">Submit</button>
+          <button className="btn w-full btn-primary text-white">
+            {isPending ? "Loading........." : "Submit"}
+          </button>
         </div>
       </dialog>
     </div>
