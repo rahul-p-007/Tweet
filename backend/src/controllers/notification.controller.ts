@@ -5,12 +5,14 @@ import { Notification } from "../models/notification.model";
 export const getAllNotifications = async (req: any, res: Response) => {
   try {
     const userId = req.user._id;
+    console.log("userId from req.user:", req.user._id);
+
     const notification = await Notification.find({ to: userId }).populate({
       path: "from",
       select: "username,profileImg",
     });
     await Notification.updateMany({ to: userId }, { read: true });
-    res.status(200).json(notification);
+    return res.status(200).json(notification);
   } catch (error: any) {
     console.log("Error in getAllNotifications controller:", error.message);
     return res.status(500).json({ error: "Something went wrong" });
