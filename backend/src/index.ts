@@ -29,7 +29,11 @@ app.use(
 
 // Middleware to parse JSON bodies from incoming requests.
 // This allows Express to understand JSON data sent in the request body (e.g., from POST requests).
-app.use(express.json());
+app.use(
+  express.json({
+    limit: "5mb",
+  })
+);
 
 // Middleware to parse URL-encoded bodies from incoming requests.
 // `extended: true` allows for rich objects and arrays to be encoded into the URL-encoded format.
