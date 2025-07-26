@@ -7,7 +7,7 @@ import postRoutes from "./routes/post.routes";
 import notificationRoutes from "./routes/notification.route";
 import cookieParser from "cookie-parser"; // Import cookie-parser middleware to parse cookies
 import { v2 as cloudinary } from "cloudinary"; // Import Cloudinary SDK for cloud image management
-
+import path from "path";
 import cors from "cors";
 
 dotenv.config(); // Load environment variables from the .env file into process.env
@@ -26,6 +26,8 @@ app.use(
     credentials: true,
   })
 );
+
+// const __dirname = path.resolve();
 
 // Middleware to parse JSON bodies from incoming requests.
 // This allows Express to understand JSON data sent in the request body (e.g., from POST requests).
@@ -54,6 +56,13 @@ app.use("/api/users", userRoutes);
 
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
 
 // The commented-out line `app.use(routes);` suggests a previous or alternative routing setup.
 // In the current setup, specific route modules are mounted individually.

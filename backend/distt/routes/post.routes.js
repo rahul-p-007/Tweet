@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const isAuthenticated_1 = require("../middleware/isAuthenticated");
+const post_controller_1 = require("../controllers/post.controller");
+const routes = (0, express_1.Router)();
+routes.get("/all", isAuthenticated_1.isAuthenticated, post_controller_1.getAllPosts);
+routes.get("/following", isAuthenticated_1.isAuthenticated, post_controller_1.getAllFollowingPosts);
+routes.get("/likes/:id", isAuthenticated_1.isAuthenticated, post_controller_1.getLikedPosts);
+routes.get("/user/:username", isAuthenticated_1.isAuthenticated, post_controller_1.getUserPosts);
+routes.post("/create", isAuthenticated_1.isAuthenticated, post_controller_1.createPost);
+routes.post("/like/:id", isAuthenticated_1.isAuthenticated, post_controller_1.likeUnlikePost);
+routes.post("/comment/:id", isAuthenticated_1.isAuthenticated, post_controller_1.commentOnPost);
+routes.delete("/:id", isAuthenticated_1.isAuthenticated, post_controller_1.deletePost);
+exports.default = routes;

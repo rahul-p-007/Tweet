@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const isAuthenticated_1 = require("../middleware/isAuthenticated");
+const user_controller_1 = require("../controllers/user.controller");
+const routes = (0, express_1.Router)();
+routes.get("/profile/:username", isAuthenticated_1.isAuthenticated, user_controller_1.getUserProfile);
+routes.get("/suggested", isAuthenticated_1.isAuthenticated, user_controller_1.getSuggestedUsers);
+routes.post("/follow/:id", isAuthenticated_1.isAuthenticated, user_controller_1.followUnfollowUser);
+routes.post("/update", isAuthenticated_1.isAuthenticated, user_controller_1.updateUser);
+exports.default = routes;
