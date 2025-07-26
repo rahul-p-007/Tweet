@@ -48,9 +48,10 @@ app.use("/api/users", user_routes_1.default);
 app.use("/api/posts", post_routes_1.default);
 app.use("/api/notifications", notification_route_1.default);
 if (process.env.NODE_ENV === "production") {
-    app.use(express_1.default.static(path_1.default.join(__dirname, "/frontend/dist")));
-    app.get("*", (req, res) => {
-        res.sendFile(path_1.default.resolve(__dirname, "frontend", "dist", "index.html"));
+    // Serve frontend's built files
+    app.use(express_1.default.static(path_1.default.join(__dirname, "../../../frontend/dist")));
+    app.get("*", (_, res) => {
+        res.sendFile(path_1.default.join(__dirname, "../../../frontend/dist", "index.html"));
     });
 }
 // The commented-out line `app.use(routes);` suggests a previous or alternative routing setup.
